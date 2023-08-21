@@ -5,8 +5,8 @@ Abstract:
 The grid view used in the DonutGallery.
 */
 
-import SwiftUI
 import Decide
+import SwiftUI
 
 struct DonutGalleryGrid: View {
     @Observe(\NewFoodTruckState.Index.$donut) var donutIndex
@@ -15,7 +15,7 @@ struct DonutGalleryGrid: View {
     
     @Environment(\.horizontalSizeClass) private var sizeClass
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
-    
+
     var useReducedThumbnailSize: Bool {
         if sizeClass == .compact {
             return true

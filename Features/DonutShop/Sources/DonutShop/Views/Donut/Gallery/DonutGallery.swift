@@ -5,8 +5,8 @@ Abstract:
 The donut gallery view.
 */
 
-import SwiftUI
 import Decide
+import SwiftUI
 
 struct DonutGallery: View {
     @Bind(\NewFoodTruckState.$selectedDonut) var selectedDonut

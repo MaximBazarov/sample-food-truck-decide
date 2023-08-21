@@ -10,22 +10,23 @@ import SwiftUI
 
 struct NewDonutEditor: View {
 
-    @Observe(\FoodTruckState.$selectedDonut) var donut
+    @Observe(\NewFoodTruckState.$selectedDonut) var donut
+    @ObserveKeyed(\NewFoodTruckState.Data.$donut) var donuts
 
     var body: some View {
         DonutEditor()
-        .toolbar {
-            ToolbarTitleMenu {
-                Button {
+            .toolbar {
+                ToolbarTitleMenu {
+                    Button {
 
-                } label: {
-                    Label("My Action", systemImage: "star")
+                    } label: {
+                        Label("My Action", systemImage: "star")
+                    }
                 }
             }
-        }
-        .navigationTitle(donut.name)
-        .navigationBarTitleDisplayMode(.inline)
-        .toolbarRole(.editor)
+            .navigationTitle(donuts[donut].name)
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbarRole(.editor)
     }
 }
 
