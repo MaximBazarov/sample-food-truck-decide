@@ -38,7 +38,7 @@ public struct DonutRenderer: View {
             guard !imageIsReady else {
                 return
             }
-            let renderer = ImageRenderer(content: DonutView(donut: donut))
+            let renderer = ImageRenderer(content: DonutView(id: donut.id))
             renderer.proposedSize = ProposedViewSize(width: donutThumbnailSize, height: donutThumbnailSize)
             renderer.scale = displayScale
             if let cgImage = renderer.cgImage {

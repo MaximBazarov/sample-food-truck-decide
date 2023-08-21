@@ -9,7 +9,15 @@ import SwiftUI
 import Decide
 
 struct DonutGalleryGrid: View {
-    @Observe(\FoodTruckState.$donuts) var donuts
+    @Observe(\DonutState.Index.$all) var donuts
+
+    @Observe(\DonutState.Index.$editorDonut) var selected
+
+    @ObserveKeyed(\DonutState.$name) var name
+    @ObserveKeyed(\DonutState.$dough) var dough
+    @ObserveKeyed(\DonutState.$glaze) var glaze
+    @ObserveKeyed(\DonutState.$topping) var topping
+
     var width: Double
     
     @Environment(\.horizontalSizeClass) private var sizeClass
@@ -45,27 +53,32 @@ struct DonutGalleryGrid: View {
     
     var body: some View {
         LazyVGrid(columns: gridItems, spacing: 20) {
-            ForEach(donuts) { donut in
-                NavigationLink(value: donut) {
+            ForEach(donuts, id: \.self) { id in
+                NavigationLink(value: id) {
                     VStack {
-                        DonutView(donut: donut)
+                        DonutView(id: id)
                             .frame(width: thumbnailSize, height: thumbnailSize)
-
-                        VStack {
-                            let flavor = donut.flavors.mostPotentFlavor
-                            Text(donut.name)
-                            HStack(spacing: 4) {
-                                flavor.image
-                                Text(flavor.name)
-                            }
+                        Text(name[id])
                             .font(.subheadline)
                             .foregroundStyle(.secondary)
-                        }
-                        .multilineTextAlignment(.center)
+                            .multilineTextAlignment(.center)
+//                        VStack {
+////                            let flavor = donut.flavors.mostPotentFlavor
+//                            Text(name[selected])
+////                            HStack(spacing: 4) {
+////                                flavor.image
+////                                Text(flavor.name)
+////                            }
+//                            .font(.subheadline)
+//                            .foregroundStyle(.secondary)
+//                        }
+                            .multilineTextAlignment(.center)
                     }
                 }
-                .buttonStyle(.plain)
+
+
             }
+            .buttonStyle(.plain)
         }
         .padding()
     }

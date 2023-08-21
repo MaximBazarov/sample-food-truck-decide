@@ -19,7 +19,7 @@ public struct DonutStackView: View {
     public var body: some View {
         DiagonalDonutStackLayout {
             ForEach(donuts.prefix(3)) { donut in
-                DonutView(donut: donut)
+                DonutView(id: donut.id)
             }
         }
         .overlay(alignment: .bottomTrailing) {

@@ -6,15 +6,21 @@ A donut view.
 */
 
 import SwiftUI
+import Decide
 
 public let donutThumbnailSize: Double = 128
 
 public struct DonutView: View {
-    var donut: Donut
+    var id: Donut.ID
     var visibleLayers: DonutLayer = .all
 
-    public init(donut: Donut, visibleLayers: DonutLayer = .all) {
-        self.donut = donut
+    @ObserveKeyed(\DonutState.$name) var name
+    @ObserveKeyed(\DonutState.$dough) var dough
+    @ObserveKeyed(\DonutState.$glaze) var glaze
+    @ObserveKeyed(\DonutState.$topping) var topping
+
+    public init(id: Donut.ID, visibleLayers: DonutLayer = .all) {
+        self.id = id
         self.visibleLayers = visibleLayers
     }
     
@@ -24,27 +30,27 @@ public struct DonutView: View {
 
             ZStack {
                 if visibleLayers.contains(.dough) {
-                    donut.dough.image(thumbnail: useThumbnail)
+                    dough[id].image(thumbnail: useThumbnail)
                         .resizable()
                         .interpolation(.medium)
                         .scaledToFit()
-                        .id(donut.dough.id)
+                        .id("DOUGH - \(id)")
                 }
 
-                if let glaze = donut.glaze, visibleLayers.contains(.glaze) {
+                if let glaze = glaze[id], visibleLayers.contains(.glaze) {
                     glaze.image(thumbnail: useThumbnail)
                         .resizable()
                         .interpolation(.medium)
                         .scaledToFit()
-                        .id(glaze.id)
+                        .id("GLAZE - \(id)")
                 }
 
-                if let topping = donut.topping, visibleLayers.contains(.topping) {
+                if let topping = topping[id], visibleLayers.contains(.topping) {
                     topping.image(thumbnail: useThumbnail)
                         .resizable()
                         .interpolation(.medium)
                         .scaledToFit()
-                        .id(topping.id)
+                        .id("TOPPING - \(id)")
                 }
             }
             .aspectRatio(1, contentMode: .fit)
@@ -70,6 +76,6 @@ public struct DonutLayer: OptionSet {
 
 struct DonutCanvas_Previews: PreviewProvider {
     static var previews: some View {
-        DonutView(donut: .preview)
+        DonutView(id: 0)
     }
 }
