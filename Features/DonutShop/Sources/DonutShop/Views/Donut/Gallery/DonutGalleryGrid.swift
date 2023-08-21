@@ -9,10 +9,11 @@ import Decide
 import SwiftUI
 
 struct DonutGalleryGrid: View {
-    @Observe(\NewFoodTruckState.Index.$donut) var donutIndex
-    @ObserveKeyed(\NewFoodTruckState.Data.$donut) var donutsData
+    var donuts: [Donut.ID]
     var width: Double
-    
+
+    @ObserveKeyed(\NewFoodTruckState.Data.$donut) var donutsData
+
     @Environment(\.horizontalSizeClass) private var sizeClass
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
@@ -46,7 +47,7 @@ struct DonutGalleryGrid: View {
     
     var body: some View {
         LazyVGrid(columns: gridItems, spacing: 20) {
-            ForEach(donutIndex, id: \.self) { donutId in
+            ForEach(donuts, id: \.self) { donutId in
                 NavigationLink(value: donutId) {
                     VStack {
                         DonutView(donut: donutsData[donutId])
@@ -78,7 +79,10 @@ struct DonutGalleryGrid_Previews: PreviewProvider {
             NavigationStack {
                 GeometryReader { geometryProxy in
                     ScrollView {
-                        DonutGalleryGrid(width: geometryProxy.size.width)
+                        DonutGalleryGrid(
+                            donuts: Donut.all.map { $0.id },
+                            width: geometryProxy.size.width
+                        )
                     }
                 }
             }

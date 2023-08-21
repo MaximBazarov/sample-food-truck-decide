@@ -19,7 +19,7 @@ struct DonutGallery: View {
     @State private var searchText = ""
     
     var filteredDonuts: [Donut.ID] {
-        donutsIndex
+        donutsIndex.filter { donutsData[$0].matches(searchText: searchText) }
     }
     
     var tableImageSize: Double {
@@ -41,7 +41,7 @@ struct DonutGallery: View {
                 toolbarItems
             }
         }
-//        .searchable(text: $searchText)
+        .searchable(text: $searchText)
         .navigationTitle("Donuts")
         .navigationDestination(for: Donut.ID.self) { donut in
             DonutDetailsView()
@@ -60,7 +60,10 @@ struct DonutGallery: View {
     var grid: some View {
         GeometryReader { geometryProxy in
             ScrollView {
-                DonutGalleryGrid(width: geometryProxy.size.width)
+                DonutGalleryGrid(
+                    donuts: filteredDonuts,
+                    width: geometryProxy.size.width
+                )
             }
         }
     }
