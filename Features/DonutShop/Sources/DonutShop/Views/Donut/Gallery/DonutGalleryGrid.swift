@@ -9,7 +9,8 @@ import SwiftUI
 import Decide
 
 struct DonutGalleryGrid: View {
-    @Observe(\FoodTruckState.$donuts) var donuts
+    @Observe(\NewFoodTruckState.Index.$donut) var donutIndex
+    @ObserveKeyed(\NewFoodTruckState.Data.$donut) var donutsData
     var width: Double
     
     @Environment(\.horizontalSizeClass) private var sizeClass
@@ -45,15 +46,15 @@ struct DonutGalleryGrid: View {
     
     var body: some View {
         LazyVGrid(columns: gridItems, spacing: 20) {
-            ForEach(donuts) { donut in
-                NavigationLink(value: donut) {
+            ForEach(donutIndex, id: \.self) { donutId in
+                NavigationLink(value: donutId) {
                     VStack {
-                        DonutView(donut: donut)
+                        DonutView(donut: donutsData[donutId])
                             .frame(width: thumbnailSize, height: thumbnailSize)
 
                         VStack {
-                            let flavor = donut.flavors.mostPotentFlavor
-                            Text(donut.name)
+                            let flavor = donutsData[donutId].flavors.mostPotentFlavor
+                            Text(donutsData[donutId].name)
                             HStack(spacing: 4) {
                                 flavor.image
                                 Text(flavor.name)
@@ -72,19 +73,21 @@ struct DonutGalleryGrid: View {
 }
 
 struct DonutGalleryGrid_Previews: PreviewProvider {
-    struct Preview: View {
-        @State private var donuts = Donut.all
-        
+    struct Preview: View {        
         var body: some View {
-            GeometryReader { geometryProxy in
-                ScrollView {
-                    DonutGalleryGrid(width: geometryProxy.size.width)
+            NavigationStack {
+                GeometryReader { geometryProxy in
+                    ScrollView {
+                        DonutGalleryGrid(width: geometryProxy.size.width)
+                    }
                 }
             }
+
         }
     }
     
     static var previews: some View {
         Preview()
+            .appEnvironment(.preview)
     }
 }

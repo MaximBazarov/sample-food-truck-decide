@@ -9,16 +9,17 @@ import SwiftUI
 import Decide
 
 struct DonutGallery: View {
-    @Observe(\FoodTruckState.$donuts) var donuts
-    @Bind(\FoodTruckState.$selectedDonut) var selectedDonut
+    @Bind(\NewFoodTruckState.$selectedDonut) var selectedDonut
+    @Bind(\NewFoodTruckState.Index.$donut) var donutsIndex
+    @ObserveKeyed(\NewFoodTruckState.Data.$donut) var donutsData
 
     @State private var layout = BrowserLayout.grid
     
     @State private var selection = Set<Donut.ID>()
     @State private var searchText = ""
     
-    var filteredDonuts: [Donut] {
-        donuts.filter { $0.matches(searchText: searchText) }
+    var filteredDonuts: [Donut.ID] {
+        donutsIndex
     }
     
     var tableImageSize: Double {
@@ -42,16 +43,16 @@ struct DonutGallery: View {
         }
 //        .searchable(text: $searchText)
         .navigationTitle("Donuts")
-        .navigationDestination(for: Donut.self) { donut in
+        .navigationDestination(for: Donut.ID.self) { donut in
             DonutDetailsView()
                 .onAppear {
                     selectedDonut = donut
                 }
         }
         .navigationDestination(for: String.self) { donut in
-            DonutEditor()
+            NewDonutEditor()
                 .onAppear {
-                    selectedDonut = Donut.newDonut
+                   addNewDonut()
                 }
         }
     }
@@ -63,16 +64,16 @@ struct DonutGallery: View {
             }
         }
     }
-    
+
     var table: some View {
         Table(filteredDonuts, selection: $selection) {
-            TableColumn("Name") { donut in
-                NavigationLink(value: donut.id) {
+            TableColumn("Name") { donutId in
+                NavigationLink(value: donutId) {
                     HStack {
-                        DonutView(donut: donut)
+                        DonutView(donut: donutsData[donutId])
                             .frame(width: tableImageSize, height: tableImageSize)
 
-                        Text(donut.name)
+                        Text(donutsData[donutId].name)
                     }
                 }
             }
@@ -97,6 +98,12 @@ struct DonutGallery: View {
             Label("Layout Options", systemImage: layout.imageName)
                 .labelStyle(.iconOnly)
         }
+    }
+
+    func addNewDonut() {
+        let newID = donutsIndex.count
+        selectedDonut = newID
+        donutsIndex.append(newID)
     }
 }
 
@@ -126,13 +133,14 @@ enum BrowserLayout: String, Identifiable, CaseIterable {
 struct DonutBakery_Previews: PreviewProvider {
     struct Preview: View {
         var body: some View {
-            DonutGallery()
+            NavigationStack {
+                DonutGallery()
+            }
         }
     }
 
     static var previews: some View {
-        NavigationStack {
-            Preview()
-        }
+        Preview()
+            .appEnvironment(.preview)
     }
 }
