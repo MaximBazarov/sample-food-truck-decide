@@ -10,6 +10,8 @@
 		220EFD2A2A93AF0E004488DE /* Decide in Frameworks */ = {isa = PBXBuildFile; productRef = 220EFD292A93AF0E004488DE /* Decide */; };
 		2273ABDE2A940FB8005EFE4F /* FoodTruckState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2273ABDD2A940FB8005EFE4F /* FoodTruckState.swift */; };
 		2273ABDF2A940FB8005EFE4F /* FoodTruckState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2273ABDD2A940FB8005EFE4F /* FoodTruckState.swift */; };
+		2273ABE12A941145005EFE4F /* Int+Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2273ABE02A941145005EFE4F /* Int+Identifiable.swift */; };
+		2273ABE22A941145005EFE4F /* Int+Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2273ABE02A941145005EFE4F /* Int+Identifiable.swift */; };
 		2273ABE42A941173005EFE4F /* ApplicationEnvironment+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2273ABE32A941173005EFE4F /* ApplicationEnvironment+Preview.swift */; };
 		2273ABE52A941173005EFE4F /* ApplicationEnvironment+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2273ABE32A941173005EFE4F /* ApplicationEnvironment+Preview.swift */; };
 		6178CE6E2845B07E00F240E8 /* CardNavigationHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6178CE6D2845B07E00F240E8 /* CardNavigationHeader.swift */; };
@@ -167,6 +169,7 @@
 
 /* Begin PBXFileReference section */
 		2273ABDD2A940FB8005EFE4F /* FoodTruckState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodTruckState.swift; sourceTree = "<group>"; };
+		2273ABE02A941145005EFE4F /* Int+Identifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Identifiable.swift"; sourceTree = "<group>"; };
 		2273ABE32A941173005EFE4F /* ApplicationEnvironment+Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ApplicationEnvironment+Preview.swift"; sourceTree = "<group>"; };
 		6178CE6D2845B07E00F240E8 /* CardNavigationHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardNavigationHeader.swift; sourceTree = "<group>"; };
 		7AE906C103F323E6CEF38CA5 /* LICENSE.txt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
@@ -417,6 +420,7 @@
 			children = (
 				E0C37C14282333AE007B925B /* WidthThresholdReader.swift */,
 				E0C4A534283EBD67007D5B83 /* FlowLayout.swift */,
+				2273ABE02A941145005EFE4F /* Int+Identifiable.swift */,
 				2273ABE32A941173005EFE4F /* ApplicationEnvironment+Preview.swift */,
 			);
 			path = General;
@@ -626,6 +630,7 @@
 				E0510739283C187300FCE3E6 /* App.swift in Sources */,
 				E051073A283C187300FCE3E6 /* OrderDetailView.swift in Sources */,
 				E051073B283C187300FCE3E6 /* SocialFeedView.swift in Sources */,
+				2273ABE22A941145005EFE4F /* Int+Identifiable.swift in Sources */,
 				E051073C283C187300FCE3E6 /* OrderCompleteView.swift in Sources */,
 				E051073F283C187300FCE3E6 /* RecommendedParkingSpotCard.swift in Sources */,
 				E0510740283C187300FCE3E6 /* StoreSupportView.swift in Sources */,
@@ -692,6 +697,7 @@
 				E09DC3692833222700040525 /* CardNavigationHeaderLabelStyle.swift in Sources */,
 				E09DC36D2833222700040525 /* TruckDonutsCard.swift in Sources */,
 				E0C37C0028233374007B925B /* DonutGallery.swift in Sources */,
+				2273ABE12A941145005EFE4F /* Int+Identifiable.swift in Sources */,
 				E0C37C29282333C9007B925B /* SocialFeedPlusSettings.swift in Sources */,
 				E0C37C1E282333B8007B925B /* DetailColumn.swift in Sources */,
 				E0C4A52B283E8FD5007D5B83 /* TopFiveDonutsView.swift in Sources */,
