@@ -24,10 +24,17 @@ struct DetailsDonutEditor: View {
 }
 
 struct DetailsDonutEditor_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationStack {
-            DetailsDonutEditor()
+    struct Preview: View {
+        var body: some View {
+            NavigationStack {
+                DetailsDonutEditor()
+            }
         }
+    }
+
+    static var previews: some View {
+        Preview()
+            .appEnvironment(.preview)
     }
 }
 

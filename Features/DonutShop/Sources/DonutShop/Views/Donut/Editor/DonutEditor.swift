@@ -10,8 +10,9 @@ import Decide
 
 struct DonutEditor: View {
     
-    @Bind(\FoodTruckState.$selectedDonut) var donut
-    
+    @Observe(\FoodTruckState.$selectedDonut) var id
+    @BindKeyed(\FoodTruckState.Data.$donut) var donuts
+
     var body: some View {
         WidthThresholdReader { proxy in
             if proxy.isCompact {
@@ -34,7 +35,7 @@ struct DonutEditor: View {
     }
     
     var donutViewer: some View {
-        DonutView(donut: donut)
+        DonutView(donut: donuts[id])
             .frame(minWidth: 100, maxWidth: .infinity, minHeight: 100, maxHeight: .infinity)
             .listRowInsets(.init())
             .padding(.horizontal, 40)
@@ -45,22 +46,22 @@ struct DonutEditor: View {
     @ViewBuilder
     var editorContent: some View {
         Section("Donut") {
-            TextField("Name", text: $donut.name, prompt: Text("Donut Name"))
+            TextField("Name", text: donuts[id].name, prompt: Text("Donut Name"))
         }
 
         Section("Flavor profile") {
             DonatFlavorDetailsView(
-                mostPotentFlavor: donut.flavors.mostPotent,
-                flavors: donut.flavors
+                mostPotentFlavor: donuts[id].flavors.mostPotent,
+                flavors: donuts[id].flavors
             )
         }
         
         Section("Ingredients") {
-            DoughPicker(dough: $donut.dough)
+            DoughPicker(dough: donuts[id].dough)
 
-            GlazePicker(glaze: $donut.glaze)
+            GlazePicker(glaze: donuts[id].glaze)
 
-            ToppingPicker(topping: $donut.topping)
+            ToppingPicker(topping: donuts[id].topping)
         }
     }
 }

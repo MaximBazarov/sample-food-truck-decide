@@ -10,12 +10,13 @@ import Decide
 
 struct DonutDetailsView: View {
     @State private var isPresentingEditor = false
-    @Bind(\FoodTruckState.$selectedDonut) var detailsDonut
+    @Observe(\FoodTruckState.$selectedDonut) var detailsDonut
+    @ObserveKeyed(\FoodTruckState.Data.$donut) var donuts
 
     var body: some View {
         DonutDetails()
             .edgesIgnoringSafeArea(.all)
-            .navigationTitle(detailsDonut.name)
+            .navigationTitle(donuts[detailsDonut].name)
             .navigationBarTitleDisplayMode(.inline)
             .toolbarRole(.editor)
             .toolbar {
@@ -58,16 +59,21 @@ struct DonutDetailsPreview: PreviewProvider {
 
     static var previews: some View {
         Preview()
+            .appEnvironment(.preview)
     }
 }
 
 class DonutDetailsTableViewController: UITableViewController, EnvironmentObservingObject {
 
     @DefaultEnvironment var environment
-    @DefaultBind(\FoodTruckState.$selectedDonut) var donut
+    @DefaultObserve(\FoodTruckState.$selectedDonut) var selectedDonut
+    @DefaultObserveKeyed(\FoodTruckState.Data.$donut) var donuts
+
+    var donut: Donut {
+        donuts[selectedDonut]
+    }
 
     func environmentDidUpdate() {
-        _ = donut // we need to read property in order to subscribe.
         tableView.reloadData()
     }
 
