@@ -7,6 +7,7 @@ The single entry point for the Food Truck app on iOS and macOS.
 
 import SwiftUI
 import FoodTruckKit
+import Decide
 
 /// The app's entry point.
 ///
@@ -18,7 +19,11 @@ struct FoodTruckApp: App {
     @StateObject private var model = FoodTruckModel()
     /// The in-app purchase store's state.
     @StateObject private var accountStore = AccountStore()
-    
+
+    init() {
+        ApplicationEnvironment.bootstrap(donuts: model.donuts)
+    }
+
     /// The app's body function.
     ///
     /// This app uses a [`WindowGroup`](https://developer.apple.com/documentation/swiftui/windowgroup) scene, which contains the root view of the app, ``ContentView``.
