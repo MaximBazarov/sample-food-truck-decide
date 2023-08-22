@@ -9,9 +9,9 @@ import Decide
 import SwiftUI
 
 struct DonutGallery: View {
-    @Bind(\NewFoodTruckState.$selectedDonut) var selectedDonut
-    @Bind(\NewFoodTruckState.Index.$donut) var donutsIndex
-    @ObserveKeyed(\NewFoodTruckState.Data.$donut) var donutsData
+    @Bind(\FoodTruckState.$selectedDonut) var selectedDonut
+    @Bind(\FoodTruckState.Index.$donut) var donutsIndex
+    @ObserveKeyed(\FoodTruckState.Data.$donut) var donutsData
 
     @State private var layout = BrowserLayout.grid
     

@@ -10,8 +10,8 @@ import Decide
 
 struct DonutDetailsView: View {
     @State private var isPresentingEditor = false
-    @Observe(\NewFoodTruckState.$selectedDonut) var detailsDonut
-    @ObserveKeyed(\NewFoodTruckState.Data.$donut) var donuts
+    @Observe(\FoodTruckState.$selectedDonut) var detailsDonut
+    @ObserveKeyed(\FoodTruckState.Data.$donut) var donuts
 
     var body: some View {
         DonutDetails()
@@ -66,8 +66,8 @@ struct DonutDetailsPreview: PreviewProvider {
 class DonutDetailsTableViewController: UITableViewController, EnvironmentObservingObject {
 
     @DefaultEnvironment var environment
-    @DefaultObserve(\NewFoodTruckState.$selectedDonut) var selectedDonut
-    @DefaultObserveKeyed(\NewFoodTruckState.Data.$donut) var donuts
+    @DefaultObserve(\FoodTruckState.$selectedDonut) var selectedDonut
+    @DefaultObserveKeyed(\FoodTruckState.Data.$donut) var donuts
 
     var donut: Donut {
         donuts[selectedDonut]

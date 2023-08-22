@@ -10,13 +10,15 @@ import Foundation
 
 extension ApplicationEnvironment {
     static var preview: ApplicationEnvironment {
-        let allIds = Donut.all.map { $0.id }
-        `default`.setValue(allIds, \NewFoodTruckState.Index.$donut.wrappedValue)
-        for donut in Donut.all {
-            `default`.setValue(donut, \NewFoodTruckState.Data.$donut.wrappedValue, at: donut.id)
-        }
-
-        `default`.setValue(1, \NewFoodTruckState.$selectedDonut.wrappedValue)
+        bootstrap()
         return `default`
+    }
+
+    static func bootstrap(donuts: [Donut] = Donut.all) {
+        `default`.setValue(donuts.map { $0.id }, \FoodTruckState.Index.$donut.wrappedValue)
+        for donut in donuts {
+            `default`.setValue(donut, \FoodTruckState.Data.$donut.wrappedValue, at: donut.id)
+        }
+        `default`.setValue(0, \FoodTruckState.$selectedDonut.wrappedValue)
     }
 }

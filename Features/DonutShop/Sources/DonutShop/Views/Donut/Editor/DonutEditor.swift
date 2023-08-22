@@ -10,8 +10,8 @@ import Decide
 
 struct DonutEditor: View {
     
-    @Observe(\NewFoodTruckState.$selectedDonut) var id
-    @BindKeyed(\NewFoodTruckState.Data.$donut) var donuts
+    @Observe(\FoodTruckState.$selectedDonut) var id
+    @BindKeyed(\FoodTruckState.Data.$donut) var donuts
 
     var body: some View {
         WidthThresholdReader { proxy in

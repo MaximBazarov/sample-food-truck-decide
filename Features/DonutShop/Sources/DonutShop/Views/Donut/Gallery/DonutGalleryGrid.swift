@@ -12,7 +12,7 @@ struct DonutGalleryGrid: View {
     var donuts: [Donut.ID]
     var width: Double
 
-    @ObserveKeyed(\NewFoodTruckState.Data.$donut) var donutsData
+    @ObserveKeyed(\FoodTruckState.Data.$donut) var donutsData
 
     @Environment(\.horizontalSizeClass) private var sizeClass
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize

@@ -8,11 +8,6 @@ The food truck model.
 import Decide
 
 final class FoodTruckState: AtomicState {
-    @Mutable @Property public var donuts = Donut.all
-    @Mutable @Property public var selectedDonut: Donut = Donut.cosmos
-}
-
-final class NewFoodTruckState: AtomicState {
     @Mutable @Property public var selectedDonut: Donut.ID = -1
 
     final class Index: AtomicState {

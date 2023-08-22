@@ -10,8 +10,8 @@ import SwiftUI
 
 struct NewDonutEditor: View {
 
-    @Observe(\NewFoodTruckState.$selectedDonut) var donut
-    @ObserveKeyed(\NewFoodTruckState.Data.$donut) var donuts
+    @Observe(\FoodTruckState.$selectedDonut) var donut
+    @ObserveKeyed(\FoodTruckState.Data.$donut) var donuts
 
     var body: some View {
         DonutEditor()
