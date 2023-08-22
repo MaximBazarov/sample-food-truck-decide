@@ -15,10 +15,33 @@ extension ApplicationEnvironment {
     }
 
     static func bootstrap(donuts: [Donut] = Donut.all) {
-        `default`.setValue(donuts.map { $0.id }, \FoodTruckState.Index.$donut.wrappedValue)
+        bootstrap(donuts.map { $0.id }, for: \FoodTruckState.Index.$donut)
         for donut in donuts {
-            `default`.setValue(donut, \FoodTruckState.Data.$donut.wrappedValue, at: donut.id)
+            bootstrap(donut, for: \FoodTruckState.Data.$donut, at: donut.id)
         }
-        `default`.setValue(0, \FoodTruckState.$selectedDonut.wrappedValue)
+        bootstrap(0, for: \FoodTruckState.$selectedDonut)
+    }
+
+    // TODO: Move to Decide framework
+    static func bootstrap<S: AtomicState, Value>(
+        _ newValue: Value,
+        for keyPath: KeyPath<S, Mutable<Value>>
+    ) {
+        `default`.setValue(
+            newValue,
+            keyPath.appending(path: \.wrappedValue)
+        )
+    }
+
+    // TODO: Move to Decide framework
+    static func bootstrap<I:Hashable, S: KeyedState<I>, Value>(
+        _ newValue: Value,
+        for keyPath: KeyPath<S, Mutable<Value>>,
+        at identifier: I
+    ) {
+        `default`.setValue(
+            newValue,
+            keyPath.appending(path: \.wrappedValue),
+            at: identifier)
     }
 }
