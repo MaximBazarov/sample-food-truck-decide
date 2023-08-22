@@ -10,6 +10,8 @@
 		220EFD2A2A93AF0E004488DE /* Decide in Frameworks */ = {isa = PBXBuildFile; productRef = 220EFD292A93AF0E004488DE /* Decide */; };
 		2273ABDE2A940FB8005EFE4F /* FoodTruckState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2273ABDD2A940FB8005EFE4F /* FoodTruckState.swift */; };
 		2273ABDF2A940FB8005EFE4F /* FoodTruckState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2273ABDD2A940FB8005EFE4F /* FoodTruckState.swift */; };
+		2273ABE42A941173005EFE4F /* ApplicationEnvironment+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2273ABE32A941173005EFE4F /* ApplicationEnvironment+Preview.swift */; };
+		2273ABE52A941173005EFE4F /* ApplicationEnvironment+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2273ABE32A941173005EFE4F /* ApplicationEnvironment+Preview.swift */; };
 		6178CE6E2845B07E00F240E8 /* CardNavigationHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6178CE6D2845B07E00F240E8 /* CardNavigationHeader.swift */; };
 		6178CE6F2845B07E00F240E8 /* CardNavigationHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6178CE6D2845B07E00F240E8 /* CardNavigationHeader.swift */; };
 		84ACCDC3282D671600756FB7 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 84ACCDC1282D671600756FB7 /* Localizable.strings */; };
@@ -165,6 +167,7 @@
 
 /* Begin PBXFileReference section */
 		2273ABDD2A940FB8005EFE4F /* FoodTruckState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodTruckState.swift; sourceTree = "<group>"; };
+		2273ABE32A941173005EFE4F /* ApplicationEnvironment+Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ApplicationEnvironment+Preview.swift"; sourceTree = "<group>"; };
 		6178CE6D2845B07E00F240E8 /* CardNavigationHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardNavigationHeader.swift; sourceTree = "<group>"; };
 		7AE906C103F323E6CEF38CA5 /* LICENSE.txt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
 		84ACCDC5282D671600756FB7 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -414,6 +417,7 @@
 			children = (
 				E0C37C14282333AE007B925B /* WidthThresholdReader.swift */,
 				E0C4A534283EBD67007D5B83 /* FlowLayout.swift */,
+				2273ABE32A941173005EFE4F /* ApplicationEnvironment+Preview.swift */,
 			);
 			path = General;
 			sourceTree = "<group>";
@@ -636,6 +640,7 @@
 				2273ABDF2A940FB8005EFE4F /* FoodTruckState.swift in Sources */,
 				E051074B283C187300FCE3E6 /* SocialFeedPlusSettings.swift in Sources */,
 				E0C4A536283EBD67007D5B83 /* FlowLayout.swift in Sources */,
+				2273ABE52A941173005EFE4F /* ApplicationEnvironment+Preview.swift in Sources */,
 				E051074C283C187300FCE3E6 /* DetailColumn.swift in Sources */,
 				E051074D283C187300FCE3E6 /* WidthThresholdReader.swift in Sources */,
 				E051074E283C187300FCE3E6 /* SignUpView.swift in Sources */,
@@ -695,6 +700,7 @@
 				E08D7060283C492C00014B89 /* SocialFeedContent.swift in Sources */,
 				E0C37BE328233197007B925B /* SignUpView.swift in Sources */,
 				E0C37BED282331AA007B925B /* CityWeatherCard.swift in Sources */,
+				2273ABE42A941173005EFE4F /* ApplicationEnvironment+Preview.swift in Sources */,
 				E0C37C26282333C9007B925B /* SubscriptionStoreView.swift in Sources */,
 				E09DC36A2833222700040525 /* TruckSocialFeedCard.swift in Sources */,
 				E09DC36B2833222700040525 /* TruckWeatherCard.swift in Sources */,
