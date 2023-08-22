@@ -7,10 +7,13 @@ The grid view used in the DonutGallery.
 
 import SwiftUI
 import FoodTruckKit
+import Decide
 
 struct DonutGalleryGrid: View {
-    var donuts: [Donut]
+    var donuts: [Donut.ID]
     var width: Double
+
+    @ObserveKeyed(\FoodTruckState.Data.$donut) var donutsData
     
     #if os(iOS)
     @Environment(\.horizontalSizeClass) private var sizeClass
@@ -58,15 +61,15 @@ struct DonutGalleryGrid: View {
     
     var body: some View {
         LazyVGrid(columns: gridItems, spacing: 20) {
-            ForEach(donuts) { donut in
-                NavigationLink(value: donut.id) {
+            ForEach(donuts, id: \.self) { donutId in
+                NavigationLink(value: donutId) {
                     VStack {
-                        DonutView(donut: donut)
+                        DonutView(donut: donutsData[donutId])
                             .frame(width: thumbnailSize, height: thumbnailSize)
 
                         VStack {
-                            let flavor = donut.flavors.mostPotentFlavor
-                            Text(donut.name)
+                            let flavor = donutsData[donutId].flavors.mostPotentFlavor
+                            Text(donutsData[donutId].name)
                             HStack(spacing: 4) {
                                 flavor.image
                                 Text(flavor.name)
@@ -86,12 +89,15 @@ struct DonutGalleryGrid: View {
 
 struct DonutGalleryGrid_Previews: PreviewProvider {
     struct Preview: View {
-        @State private var donuts = Donut.all
-        
+        @State private var donuts = Donut.all.map { $0.id }
+
         var body: some View {
             GeometryReader { geometryProxy in
                 ScrollView {
-                    DonutGalleryGrid(donuts: donuts, width: geometryProxy.size.width)
+                    DonutGalleryGrid(
+                        donuts: donuts,
+                        width: geometryProxy.size.width
+                    )
                 }
             }
         }
@@ -99,5 +105,6 @@ struct DonutGalleryGrid_Previews: PreviewProvider {
     
     static var previews: some View {
         Preview()
+            .appEnvironment(.preview)
     }
 }
