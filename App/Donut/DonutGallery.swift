@@ -7,9 +7,14 @@ The donut gallery view.
 
 import SwiftUI
 import FoodTruckKit
+import Decide
 
 struct DonutGallery: View {
     @ObservedObject var model: FoodTruckModel
+
+    @Bind(\FoodTruckState.$selectedDonut) var selectedDonut
+    @Bind(\FoodTruckState.Index.$donut) var donutsIndex
+    @ObserveKeyed(\FoodTruckState.Data.$donut) var donutsData
     
     @State private var layout = BrowserLayout.grid
     @State private var sort = DonutSortOrder.popularity(.week)
@@ -19,8 +24,8 @@ struct DonutGallery: View {
     @State private var selection = Set<Donut.ID>()
     @State private var searchText = ""
     
-    var filteredDonuts: [Donut] {
-        model.donuts(sortedBy: sort).filter { $0.matches(searchText: searchText) }
+    var filteredDonuts: [Donut.ID] {
+        donutsIndex.filter { donutsData[$0].matches(searchText: searchText) }
     }
     
     var tableImageSize: Double {
@@ -61,10 +66,18 @@ struct DonutGallery: View {
         .searchable(text: $searchText)
         .navigationTitle("Donuts")
         .navigationDestination(for: Donut.ID.self) { donutID in
-            DonutEditor(donut: model.donutBinding(id: donutID))
+            DonutEditor()
+                .onAppear()  {
+                    selectedDonut = donutID
+                }
         }
         .navigationDestination(for: String.self) { _ in
-            DonutEditor(donut: $model.newDonut)
+            DonutEditor()
+                .onAppear() {
+                    let newID = donutsIndex.count
+                    selectedDonut = newID
+                    donutsIndex.append(newID)
+                }
         }
     }
     
@@ -78,13 +91,13 @@ struct DonutGallery: View {
     
     var table: some View {
         Table(filteredDonuts, selection: $selection) {
-            TableColumn("Name") { donut in
-                NavigationLink(value: donut.id) {
+            TableColumn("Name") { donutId in
+                NavigationLink(value: donutId) {
                     HStack {
-                        DonutView(donut: donut)
+                        DonutView(donut: donutsData[donutId])
                             .frame(width: tableImageSize, height: tableImageSize)
 
-                        Text(donut.name)
+                        Text(donutsData[donutId].name)
                     }
                 }
             }
@@ -180,5 +193,6 @@ struct DonutBakery_Previews: PreviewProvider {
         NavigationStack {
             Preview()
         }
+        .appEnvironment(.preview)
     }
 }
