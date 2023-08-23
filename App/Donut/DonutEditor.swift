@@ -7,10 +7,16 @@ The donut editor view.
 
 import SwiftUI
 import FoodTruckKit
+import Decide
 
 struct DonutEditor: View {
-    @Binding var donut: Donut
-    
+    @Observe(\FoodTruckState.$selectedDonut) var id
+    @BindKeyed(\FoodTruckState.Data.$donut) var donuts
+
+    var donut: Donut {
+        donuts[id]
+    }
+
     var body: some View {
         ZStack {
             #if os(macOS)
@@ -76,7 +82,7 @@ struct DonutEditor: View {
     @ViewBuilder
     var editorContent: some View {
         Section("Donut") {
-            TextField("Name", text: $donut.name, prompt: Text("Donut Name"))
+            TextField("Name", text: donuts[id].name, prompt: Text("Donut Name"))
         }
         
         Section("Flavor Profile") {
@@ -108,14 +114,14 @@ struct DonutEditor: View {
         }
         
         Section("Ingredients") {
-            Picker("Dough", selection: $donut.dough) {
+            Picker("Dough", selection: donuts[id].dough) {
                 ForEach(Donut.Dough.all) { dough in
                     Text(dough.name)
                         .tag(dough)
                 }
             }
             
-            Picker("Glaze", selection: $donut.glaze) {
+            Picker("Glaze", selection: donuts[id].glaze) {
                 Section {
                     Text("None")
                         .tag(nil as Donut.Glaze?)
@@ -126,7 +132,7 @@ struct DonutEditor: View {
                 }
             }
             
-            Picker("Topping", selection: $donut.topping) {
+            Picker("Topping", selection: donuts[id].topping) {
                 Section {
                     Text("None")
                         .tag(nil as Donut.Topping?)
@@ -165,7 +171,7 @@ struct DonutEditor_Previews: PreviewProvider {
         @State private var donut = Donut.preview
 
         var body: some View {
-            DonutEditor(donut: $donut)
+            DonutEditor()
         }
     }
 

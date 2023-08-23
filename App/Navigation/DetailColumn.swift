@@ -42,7 +42,7 @@ struct DetailColumn: View {
         case .donuts:
             DonutGallery(model: model)
         case .donutEditor:
-            DonutEditor(donut: $model.newDonut)
+            DonutEditor()
         case .topFive:
             TopFiveDonutsView(model: model)
         case .city(let id):
